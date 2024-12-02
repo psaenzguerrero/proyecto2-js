@@ -66,6 +66,7 @@ function mostarReceta(idReceta){
     obtenerDatos(url3)
 
     .then(receta =>{
+        console.log(receta);
         
         tituloModal.textContent = receta.meals[0].strMeal;
         
@@ -75,10 +76,16 @@ function mostarReceta(idReceta){
         
         for (let index = 1; index <= 20; index++){
             const li = document.createElement("li");
-            li.textContent = receta.meals[0]["strIngredient"+[index]];
+            li.textContent = receta.meals[0]["strIngredient"+[index]]+receta.meals[0]["strMeasure"+[index]];
             if (li.textContent != "") {
                 lista.append(li);
-            }  
+            } 
+            document.getElementById("guardar").addEventListener("click", () => {
+                // Guarda el valor de una variable en el localStorage
+                const variableAguardar = receta.meals[0].idMeal; 
+                localStorage.setItem("variableGuardada", variableAguardar);
+                
+            }); 
         }
     });
     

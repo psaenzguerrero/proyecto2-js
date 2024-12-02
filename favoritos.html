@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="resultado"></h1>
+
+    <script>
+        // Recuperar la variable guardada
+        const variableGuardada = localStorage.getItem("variableGuardada");
+
+        if (variableGuardada) {
+            document.getElementById("resultado").textContent = `La variable guardada es: ${variableGuardada}`;
+        } else {
+            document.getElementById("resultado").textContent = "No hay ninguna variable guardada en localStorage.";
+        }
+    </script>
+</body>
+</html>
