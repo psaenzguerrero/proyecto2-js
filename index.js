@@ -73,19 +73,34 @@ function mostarReceta(idReceta){
         imagenModal.src=receta.meals[0].strMealThumb;
 
         textoModal.textContent= receta.meals[0].strInstructions;
-        
+        //Formador de ingredientes
         for (let index = 1; index <= 20; index++){
             const li = document.createElement("li");
             li.textContent = receta.meals[0]["strIngredient"+[index]]+receta.meals[0]["strMeasure"+[index]];
             if (li.textContent != "") {
                 lista.append(li);
+                document.getElementById("guardar").addEventListener("click", () => {
+                    // Guarda el valor de una variable en el localStorage
+                    const variableAguardar = receta.meals[0].idMeal; 
+                    localStorage.setItem("variableGuardada", variableAguardar);
+                    
+                }); 
             } 
-            document.getElementById("guardar").addEventListener("click", () => {
-                // Guarda el valor de una variable en el localStorage
-                const variableAguardar = receta.meals[0].idMeal; 
-                localStorage.setItem("variableGuardada", variableAguardar);
-                
-            }); 
+            
+            // NO ME FUNCIONA PREGUNTAR
+
+            // document.getElementById("guardar").addEventListener("click", () => {
+            //     // Obtener la lista actual de objetos desde localStorage
+            //     let objetosGuardados = JSON.parse(localStorage.getItem("listaObjetos")) || [];
+    
+            //     // Agregar el nuevo objeto
+            //     objetosGuardados.push(nuevoObjeto);
+    
+            //     // Guardar nuevamente en localStorage
+            //     localStorage.setItem("listaObjetos", JSON.stringify(objetosGuardados));
+    
+            //     alert("Objeto guardado en localStorage");
+            // });
         }
     });
     
