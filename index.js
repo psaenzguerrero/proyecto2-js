@@ -5,6 +5,7 @@ let row = document.querySelector("#recetas .row");
 let tituloModal = document.querySelector(".modal-title");
 let imagenModal = document.querySelector("#emergente img");
 let lista = document.querySelector("#emergente ul");
+let textoModal = document.querySelector("#emergente p");
 
 // FUNCION GENEREAL PARA OBTENER DATOS DE LA API PASANDOLE LA URL
 function obtenerDatos(url){
@@ -41,10 +42,10 @@ function mostrarRecetasDeLaCategoria(cat){
                     <div class="card-body">
                       <h4 class="card-title">${receta.strMeal}</h4>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-                        data-bs-target="#emergente"
-                        onclick="mostarReceta(${receta.idMeal})">
-                        VER MAS ->
-                    </button>
+                            data-bs-target="#emergente"
+                            onclick="mostarReceta(${receta.idMeal})">
+                            VER MAS ->
+                        </button>
                     </div>
                   </div>
             </div>
@@ -69,6 +70,8 @@ function mostarReceta(idReceta){
         tituloModal.textContent = receta.meals[0].strMeal;
         
         imagenModal.src=receta.meals[0].strMealThumb;
+
+        textoModal.textContent= receta.meals[0].strInstructions;
         
         for (let index = 1; index <= 20; index++){
             const li = document.createElement("li");
