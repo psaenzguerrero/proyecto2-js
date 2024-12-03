@@ -41,27 +41,9 @@
     </header>
     <div class="container my-5" id="recetas">
         <div class="row">
-<!--             
-            <div class="col-md-4">
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">
-                        <img src="" alt="">
-                    </div>
-                    <div class="card-body">
-                      <h4 class="card-title">Info card title</h4>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                  </div>
-            </div> -->
+
         </div>
     </div>
-
-
-
-    <!-- Button trigger modal -->
-    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emergente">
-        Launch demo modal
-    </button> -->
 
     <!-- Modal -->
     <div class="modal fade" id="emergente" tabindex="-1" aria-labelledby="emergenteLabel" aria-hidden="true">
@@ -85,7 +67,7 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="guardar">Añadir a favoritos</button>
+                    <button type="button" class="btn btn-primary" onclick="eliminarRecetas(this.value)">Borrar de favoritos</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     
                 </div>
@@ -94,49 +76,26 @@
     </div>
     
 
-    <script>
-        // Recuperar el arreglo de IDs desde localStorage
-        row = document.querySelector("#recetas .row");
-        const idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-        
-
-       
-
-        if (idsGuardados.length > 0) {
-            idsGuardados.forEach(id => {
-
-
-                
-
-                    row.innerHTML += `
-                 
-                    <div class="col-md-4">
-                        <div class="card text-white bg-info mb-3">
-                            <div class="card-header">
-                                <img src="${id.strMealThumb}" class="img-fluid" alt="">
-                            </div>
-                            <div class="card-body">
-                            <h4 class="card-title">${id.strMeal}</h4>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
-                                    data-bs-target="#emergente"
-                                    onclick="mostarReceta(${id})">
-                                    VER MAS ->
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    `; 
-                    
-                
-
-            });
-        } else {
-            lista.textContent = "No hay IDs guardados.";
-        }
-    </script>
-
-
+    
 <script src="./index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Recuperar el arreglo de IDs desde localStorage
+    row = document.querySelector("#recetas .row");
+    const idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+
+    if (idsGuardados.length > 0) {
+        idsGuardados.forEach(id => {
+            
+            mostrarRecetaF(id);
+
+                
+        });
+    } else {
+        lista.textContent = "No hay IDs guardados.";
+    }
+</script>
+
+
 </body>
 </html>

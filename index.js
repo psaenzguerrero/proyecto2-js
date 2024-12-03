@@ -56,10 +56,8 @@ function mostrarRecetasDeLaCategoria(cat){
 }
 function mostarReceta(idReceta){
 
-
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
 
-    
     console.log(tituloModal);
 
     obtenerDatos(url3)
@@ -78,14 +76,12 @@ function mostarReceta(idReceta){
             
             const li = document.createElement("li");
             li.textContent = receta.meals[0]["strIngredient"+[index]]+receta.meals[0]["strMeasure"+[index]];
-            if (li.textContent != "") {
+            if (li.textContent != "" && li.textContent != null && li.textContent != 0) {
 
                 lista.append(li);
   
             } 
         }
-
-        
         document.getElementById("guardar").addEventListener("click", () => {
             // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
             let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
@@ -108,8 +104,56 @@ function mostarReceta(idReceta){
     });
     
 }
+function eliminarRecetas(idReceta) {
+    // localStorage.removeItem();
+    // localStorage.clear();
+
+    let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+
+    // Eliminar el número específico del array
+    array = array.filter(item => item !== idReceta);
+
+    // Guardar el array actualizado en localStorage
+    if (array.length > 0) {
+        localStorage.setItem("idsGuardados", JSON.stringify(array));
+    } else {
+        // Si el array queda vacío, eliminar la clave en localStorage
+        localStorage.removeItem("idsGuardados");
+    }
+}
+function mostrarRecetaF(idReceta){
+    const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
+
+    console.log(tituloModal);
+
+    obtenerDatos(url3)
+
+    .then(receta =>{
+        row.innerHTML += `
+                 
+                    <div class="col-md-4">
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-header">
+                                <img src="${receta.meals[0].strMealThumb}" class="img-fluid" alt="">
+                            </div>
+                            <div class="card-body">
+                            <h4 class="card-title">${receta.meals[0].strMeal}</h4>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+                                    data-bs-target="#emergente"
+                                    onclick="mostarReceta(${receta.meals[0].idMeal})">
+                                    VER MAS ->
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `; 
+    })
+}
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-    cargarCategorias();
+    if (window.location.href == "file:///C:/Users/EAG/Desktop/proyecto2-js/index.html") {
+        cargarCategorias();
+    }
+    
 })
