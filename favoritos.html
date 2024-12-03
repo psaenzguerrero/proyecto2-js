@@ -6,17 +6,20 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 id="resultado"></h1>
+    <h1>Lista de Objetos Guardados</h1>
+    <ul id="listaObjetos"></ul>
 
     <script>
-        // Recuperar la variable guardada
-        const variableGuardada = localStorage.getItem("variableGuardada");
+        // Recuperar la lista de objetos guardados en localStorage
+        const objetosGuardados = JSON.parse(localStorage.getItem("listaObjetos")) || [];
 
-        if (variableGuardada) {
-            document.getElementById("resultado").textContent = `La variable guardada es: ${variableGuardada}`;
-            
+        // Mostrar la lista en el HTML
+        const lista = document.getElementById("listaObjetos");
+
+        if (objetosGuardados.length > 0) {
+            lista.textContent = objetosGuardados.length;
         } else {
-            document.getElementById("resultado").textContent = "No hay ninguna variable";
+            lista.textContent = "No hay objetos guardados en localStorage.";
         }
     </script>
 
