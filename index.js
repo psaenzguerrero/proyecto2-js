@@ -1,5 +1,5 @@
 let selectorCategorias = document.querySelector('#categorias select');
-let row = document.querySelector("#recetas .row");
+let row = document.querySelector('#recetas .row');
 
 //VARIABLES MODAL
 let tituloModal = document.querySelector(".modal-title");
@@ -56,7 +56,6 @@ function mostrarRecetasDeLaCategoria(cat){
 }
 function mostarReceta(idReceta){
 
-    
 
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
 
@@ -82,36 +81,34 @@ function mostarReceta(idReceta){
             if (li.textContent != "") {
 
                 lista.append(li);
-
-                // document.getElementById("guardar").addEventListener("click", () => {
-                //     // Guarda el valor de una variable en el localStorage
-                //     const variableAguardar = receta.meals[0].idMeal; 
-                //     localStorage.setItem("variableGuardada", variableAguardar);
-                    
-                // }); 
-                
-                document.getElementById("guardar").addEventListener("click", () => {
-                
-                    let objetosGuardados = JSON.parse(localStorage.getItem("listaObjetos")) || [];
-        
-                    // Agregar el nuevo objeto
-                    const variableAguardar = receta.meals[0].idMeal;
-                    objetosGuardados.push(variableAguardar);
-                    console.log(objetosGuardados);
-                    // Guardar nuevamente en localStorage
-                    localStorage.setItem("listaObjetos", JSON.stringify(objetosGuardados));
-        
-                    
-                });
+  
             } 
-            
-           
-
-            
         }
+
+        
+        document.getElementById("guardar").addEventListener("click", () => {
+            // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
+            let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+
+            // Obtiene el idMeal actual
+            const variableAguardar = receta.meals[0].idMeal;
+
+            // Verifica si el idMeal ya está en el arreglo
+            if (!idsGuardados.includes(variableAguardar)) {
+
+                // Si no existe, lo agrega
+                idsGuardados.push(variableAguardar);
+
+                // Guarda el arreglo actualizado en localStorage
+                localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
+            } 
+        });
+        
+
     });
     
 }
+
 
 document.addEventListener("DOMContentLoaded",()=>{
     cargarCategorias();

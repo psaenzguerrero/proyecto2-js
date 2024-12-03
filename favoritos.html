@@ -3,23 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Document</title><link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.css">
+    <style>
+        nav a {
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-left: 20px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+
+            span {
+                color: orange;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Lista de Objetos Guardados</h1>
-    <ul id="listaObjetos"></ul>
+
+    <header id="header" class="container bg-info text-danger py-4">
+        <div class="row">
+            <div class="col">
+                <h1>R<span>A</span>PPI</h1>
+            </div>
+            <nav class="col-auto ms-auto">
+                <a href="index.html">Inicio</a>
+                <a href="favoritos.html">Recetas fav</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container my-5" id="recetas">
+        <div class="row">
+<!--             
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">
+                        <img src="" alt="">
+                    </div>
+                    <div class="card-body">
+                      <h4 class="card-title">Info card title</h4>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+            </div> -->
+        </div>
+    </div>
+
+
+
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emergente">
+        Launch demo modal
+    </button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="emergente" tabindex="-1" aria-labelledby="emergenteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="emergenteLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img src="" alt=""  class="img-fluid">
+                    </div>
+                    
+                
+                    <h2>Instrucciones</h2>
+                    <p></p>
+                    <h2>Ingredientes y cantidades</h2>
+                    <ul>
+                        
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="guardar">Añadir a favoritos</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     <script>
-        // Recuperar la lista de objetos guardados en localStorage
-        const objetosGuardados = JSON.parse(localStorage.getItem("listaObjetos")) || [];
+        // Recuperar el arreglo de IDs desde localStorage
+        row = document.querySelector("#recetas .row");
+        const idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+        
 
-        // Mostrar la lista en el HTML
-        const lista = document.getElementById("listaObjetos");
+       
 
-        if (objetosGuardados.length > 0) {
-            lista.textContent = objetosGuardados.length;
+        if (idsGuardados.length > 0) {
+            idsGuardados.forEach(id => {
+
+
+                
+
+                    row.innerHTML += `
+                 
+                    <div class="col-md-4">
+                        <div class="card text-white bg-info mb-3">
+                            <div class="card-header">
+                                <img src="${id.strMealThumb}" class="img-fluid" alt="">
+                            </div>
+                            <div class="card-body">
+                            <h4 class="card-title">${id.strMeal}</h4>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
+                                    data-bs-target="#emergente"
+                                    onclick="mostarReceta(${id})">
+                                    VER MAS ->
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `; 
+                    
+                
+
+            });
         } else {
-            lista.textContent = "No hay objetos guardados en localStorage.";
+            lista.textContent = "No hay IDs guardados.";
         }
     </script>
 
