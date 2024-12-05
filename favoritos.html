@@ -23,6 +23,12 @@
                 color: orange;
             }
         }
+        #eliminar{
+            z-index: 999;
+        }
+        #guardar{
+            z-index: 0;
+        }
     </style>
 </head>
 
@@ -67,7 +73,8 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary eliminar" id="eliminar">Borrar de favoritos</button>
+                    <button type="button" class="btn btn-primary" id="guardar">Añadir a favoritos</button>
+                    <button type="button" class="btn btn-primary" id="eliminar">Borrar de favoritos</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     
                 </div>

@@ -71,71 +71,51 @@ function mostarReceta(idReceta){
                 lista.append(li);
             } 
         }
-
-        // const botonAccion = document.querySelector(".modal-footer > button");
-        // console.log(botonAccion.getAttribute("class"));
+        document.getElementById("guardar").addEventListener("click", () => {
+            // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
+            let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
         
-        const todosloscard = document.querySelectorAll(".col-md-4");
-        const todoslosmodales = document.querySelectorAll("#emergente");
-        todosloscard.forEach(card=> {
-            todoslosmodales.forEach(modal => {
-                console.log(card)
-            const botonAccion = modal.querySelector(".modal-footer > button");
-            console.log(botonAccion);
-            botonAccion.addEventListener("click", () =>{
-                let separar = botonAccion.getAttribute("class").split(" "); 
-                console.log(separar)
-                let enqueesta = separar[separar.length -1];
-                console.log(enqueesta);
-                if(enqueesta === "guardar"){
-                    // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
-                    let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-    
-                    // Obtiene el idMeal actual
-                    const variableAguardar = receta.meals[0].idMeal;
-    
-                    // Verifica si el idMeal ya está en el arreglo
-                    if (!idsGuardados.includes(variableAguardar)) {
-    
-                        // Si no existe, lo agrega
-                        idsGuardados.push(variableAguardar);
-    
-                        // Guarda el arreglo actualizado en localStorage
-                        localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
-                    } 
-                    botonAccion.removeAttribute("class");
-                    botonAccion.setAttribute("class","btn btn-primary eliminar");
-                    botonAccion.textContent = "Eliminar";
-                    console.log(botonAccion.getAttribute("class"));
-                }else{
-                    let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-    
-               
-                    array = array.filter(item => item != idReceta);
-                    console.log(array);
-                    console.log(idReceta);
-                    if (array.length > 0) {
-                        localStorage.setItem("idsGuardados", JSON.stringify(array));
-                    } else {
-                        // Si el array queda vacío, eliminar la clave en localStorage
-                        localStorage.removeItem("idsGuardados");
-                    }
-                    console.log(botonAccion);
-                    botonAccion.removeAttribute("class");
-                    console.log(botonAccion);
-                    botonAccion.setAttribute("class","btn btn-primary guardar");
-                    console.log(botonAccion);
-                    botonAccion.textContent = "Añadir";
-                    console.log(botonAccion.getAttribute("class"));
-                }
-            })   
-            });    
+            // Obtiene el idMeal actual
+            let variableAguardar = receta.meals[0].idMeal;
+            console.log(variableAguardar);
+            console.log(idsGuardados);
+        
+            // Verifica si el idMeal ya está en el arreglo
+            if (!idsGuardados.includes(variableAguardar)) {
+        
+                // Si no existe, lo agrega
+                idsGuardados.push(variableAguardar);
+                console.log(variableAguardar);
+                console.log(idsGuardados);
+        
+                // Guarda el arreglo actualizado en localStorage
+                localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
+            } 
         });
-
+        document.getElementById("eliminar").addEventListener("click", () => {
+        
+            let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+        
+           
+            array = array.filter(item => item != receta.meals[0].idMeal);
+            console.log(array);
+            console.log(receta.meals[0].idMeal);
+            if (array.length > 0) {
+                localStorage.setItem("idsGuardados", JSON.stringify(array));
+                console.log(array);
+                console.log(idReceta);
+            } else {
+                // Si el array queda vacío, eliminar la clave en localStorage
+                localStorage.removeItem("idsGuardados");
+            }
+        });
+        
+        
 
     });
     
 }
+
 function mostrarF(idReceta){
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
 
@@ -186,57 +166,39 @@ function mostarRecetaF(idReceta){
                 lista.append(li);
             } 
         }
-        const botonAccion = document.querySelector(".modal-footer > button");
-        console.log(botonAccion.getAttribute("class"));
+        document.getElementById("guardar").addEventListener("click", () => {
+            // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
+            let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
         
+            // Obtiene el idMeal actual
+            const variableAguardar = receta.meals[0].idMeal;
         
-        botonAccion.addEventListener("click", () =>{
-            let separar = botonAccion.getAttribute("class").split(" "); 
-            console.log(separar)
-            let enqueesta = separar[separar.length -1];
-            console.log(enqueesta);
-            if(enqueesta === "guardar"){
-                // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
-                let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-
-                // Obtiene el idMeal actual
-                const variableAguardar = receta.meals[0].idMeal;
-
-                // Verifica si el idMeal ya está en el arreglo
-                if (!idsGuardados.includes(variableAguardar)) {
-
-                    // Si no existe, lo agrega
-                    idsGuardados.push(variableAguardar);
-
-                    // Guarda el arreglo actualizado en localStorage
-                    localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
-                } 
-                botonAccion.removeAttribute("class");
-                botonAccion.setAttribute("class","btn btn-primary eliminar");
-                botonAccion.textContent = "Eliminar";
-                console.log(botonAccion.getAttribute("class"));
-            }else{
-                let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-
+            // Verifica si el idMeal ya está en el arreglo
+            if (!idsGuardados.includes(variableAguardar)) {
+        
+                // Si no existe, lo agrega
+                idsGuardados.push(variableAguardar);
+        
+                // Guarda el arreglo actualizado en localStorage
+                localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
+            } 
+        });
+        document.getElementById("eliminar").addEventListener("click", () => {
+        
+            let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+        
            
-                array = array.filter(item => item != idReceta);
-                console.log(array);
-                console.log(idReceta);
-                if (array.length > 0) {
-                    localStorage.setItem("idsGuardados", JSON.stringify(array));
-                } else {
-                    // Si el array queda vacío, eliminar la clave en localStorage
-                    localStorage.removeItem("idsGuardados");
-                }
-                console.log(botonAccion);
-                botonAccion.removeAttribute("class");
-                console.log(botonAccion);
-                botonAccion.setAttribute("class","btn btn-primary guardar");
-                console.log(botonAccion);
-                botonAccion.textContent = "Añadir";
-                console.log(botonAccion.getAttribute("class"));
+            array = array.filter(item => item != idReceta);
+            console.log(array);
+            console.log(idReceta);
+            if (array.length > 0) {
+                localStorage.setItem("idsGuardados", JSON.stringify(array));
+            } else {
+                // Si el array queda vacío, eliminar la clave en localStorage
+                localStorage.removeItem("idsGuardados");
             }
-        })
+        });
+        
     })
 }
 

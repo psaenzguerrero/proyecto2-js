@@ -26,14 +26,11 @@
                 color: orange;
             }
         }
-        .contenedor{
-            background-color: red;
-            height: 25vh;
-            width: 30vw;
-            position: absolute;
-            top: 800px;
-            right: 50px;
-            transition: all 0.5;
+        #eliminar{
+            z-index: 999;
+        }
+        #guardar{
+            z-index: 0;
         }
     </style>
 </head>
@@ -87,18 +84,14 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary guardar" id="guardar">Añadir a favoritos</button>
+                    <button type="button" class="btn btn-primary" id="guardar">Añadir a favoritos</button>
+                    <button type="button" class="btn btn-primary" id="eliminar">Borrar de favoritos</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal2 -->
-     <div class="contenedor">
-        <h1>hola</h1>
-     </div>
     <script src="./index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
