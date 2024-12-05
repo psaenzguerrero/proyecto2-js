@@ -71,22 +71,65 @@ function mostarReceta(idReceta){
                 lista.append(li);
             } 
         }
+        // document.getElementById("guardar").addEventListener("click", () => {
+        //     let variableAguardar = "";
+        //     // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
+        //     const idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+        
+        //     // Obtiene el idMeal actual
+        //     variableAguardar = receta.meals[0].idMeal;
+        
+        //     // Verifica si el idMeal ya está en el arreglo
+        //     if(idsGuardados){
+        //         if (!idsGuardados.includes(variableAguardar)) {
+            
+        //             // Si no existe, lo agrega
+        //             idsGuardados.push(variableAguardar);
+            
+        //             // Guarda el arreglo actualizado en localStorage
+        //             localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
+        //             console.log(idsGuardados);
+        //         } else if(variableAguardar != idReceta){
+                    
+        //             variableAguardar="";
+
+        //         }else{
+
+        //         }
+        //     }
+        // });
+        // document.getElementById("eliminar").addEventListener("click", () => {
+            
+        //     let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
+          
+        //     array = array.filter(item => item != receta.meals[array.length-1]);
+        //     console.log(array.length-1);
+        //     console.log(receta.meals[0].idMeal);
+        //     if (array.length > 0) {
+        //         localStorage.setItem("idsGuardados", JSON.stringify(array));
+        //     } 
+        //     else {
+        //         // Si el array queda vacío, eliminar la clave en localStorage
+        //         array.forEach(element => {
+        //             if(element == receta.meals[array.length-1]){
+        //                 localStorage.removeItem("idsGuardados");X
+        //             }
+        //         });
+        //         console.log(array);
+        //     }
+        // });
         document.getElementById("guardar").addEventListener("click", () => {
             // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
             let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
         
             // Obtiene el idMeal actual
-            let variableAguardar = receta.meals[0].idMeal;
-            console.log(variableAguardar);
-            console.log(idsGuardados);
+            const variableAguardar = receta.meals[0].idMeal;
         
             // Verifica si el idMeal ya está en el arreglo
             if (!idsGuardados.includes(variableAguardar)) {
         
                 // Si no existe, lo agrega
                 idsGuardados.push(variableAguardar);
-                console.log(variableAguardar);
-                console.log(idsGuardados);
         
                 // Guarda el arreglo actualizado en localStorage
                 localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
@@ -97,13 +140,11 @@ function mostarReceta(idReceta){
             let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
         
            
-            array = array.filter(item => item != receta.meals[0].idMeal);
+            array = array.filter(item => item != idReceta);
             console.log(array);
-            console.log(receta.meals[0].idMeal);
+            console.log(idReceta);
             if (array.length > 0) {
                 localStorage.setItem("idsGuardados", JSON.stringify(array));
-                console.log(array);
-                console.log(idReceta);
             } else {
                 // Si el array queda vacío, eliminar la clave en localStorage
                 localStorage.removeItem("idsGuardados");
