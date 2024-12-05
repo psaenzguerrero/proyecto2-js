@@ -23,12 +23,6 @@
                 color: orange;
             }
         }
-        #eliminar{
-            z-index: 999;
-        }
-        #guardar{
-            z-index: 0;
-        }
     </style>
 </head>
 
@@ -50,7 +44,13 @@
 
         </div>
     </div>
+    
+    <div id="barra">
+        <div class="lugar">
 
+        </div>
+
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="emergente" tabindex="-1" aria-labelledby="emergenteLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -73,8 +73,8 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="guardar">Añadir a favoritos</button>
-                    <button type="button" class="btn btn-primary" id="eliminar">Borrar de favoritos</button>
+                    <button type="button" class="btn btn-info" id="guardar">Añadir a favoritos</button>
+                    <button type="button" class="btn btn-warning" id="eliminar">Borrar de favoritos</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     
                 </div>

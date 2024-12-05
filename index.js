@@ -1,11 +1,18 @@
 let selectorCategorias = document.querySelector('#categorias select');
 let row = document.querySelector('#recetas .row');
+// Mensaje emergente fallido
+let lugar = document.querySelector("#barra .lugar");
+
 
 //VARIABLES MODAL
 let tituloModal = document.querySelector(".modal-title");
 let imagenModal = document.querySelector("#emergente img");
 let lista = document.querySelector("#emergente ul");
 let textoModal = document.querySelector("#emergente p");
+const elemento1=document.getElementById("guardar");
+const elemento2=document.getElementById("eliminar");
+
+
 
 // FUNCION GENEREAL PARA OBTENER DATOS DE LA API PASANDOLE LA URL
 function obtenerDatos(url){
@@ -29,10 +36,8 @@ function mostrarRecetasDeLaCategoria(cat){
     const url2 ="https://www.themealdb.com/api/json/v1/1/filter.php?c="+cat;
     obtenerDatos(url2).
     then(recetas => {
-        recetas.meals.forEach(receta=>{
-            
-            row.innerHTML += `
-                 
+        recetas.meals.forEach(receta=>{            
+            row.innerHTML += `                 
             <div class="col-md-4">
                 <div class="card text-white bg-info mb-3">
                     <div class="card-header">
@@ -53,7 +58,7 @@ function mostrarRecetasDeLaCategoria(cat){
     })
 }
 function mostarReceta(idReceta){
-
+    
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
     console.log(tituloModal);
     obtenerDatos(url3)
@@ -71,55 +76,18 @@ function mostarReceta(idReceta){
                 lista.append(li);
             } 
         }
-        // document.getElementById("guardar").addEventListener("click", () => {
-        //     let variableAguardar = "";
-        //     // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
-        //     const idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-        
-        //     // Obtiene el idMeal actual
-        //     variableAguardar = receta.meals[0].idMeal;
-        
-        //     // Verifica si el idMeal ya está en el arreglo
-        //     if(idsGuardados){
-        //         if (!idsGuardados.includes(variableAguardar)) {
-            
-        //             // Si no existe, lo agrega
-        //             idsGuardados.push(variableAguardar);
-            
-        //             // Guarda el arreglo actualizado en localStorage
-        //             localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
-        //             console.log(idsGuardados);
-        //         } else if(variableAguardar != idReceta){
-                    
-        //             variableAguardar="";
 
-        //         }else{
-
-        //         }
-        //     }
-        // });
-        // document.getElementById("eliminar").addEventListener("click", () => {
-            
-        //     let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-          
-        //     array = array.filter(item => item != receta.meals[array.length-1]);
-        //     console.log(array.length-1);
-        //     console.log(receta.meals[0].idMeal);
-        //     if (array.length > 0) {
-        //         localStorage.setItem("idsGuardados", JSON.stringify(array));
-        //     } 
-        //     else {
-        //         // Si el array queda vacío, eliminar la clave en localStorage
-        //         array.forEach(element => {
-        //             if(element == receta.meals[array.length-1]){
-        //                 localStorage.removeItem("idsGuardados");X
-        //             }
-        //         });
-        //         console.log(array);
-        //     }
-        // });
+        elemento1.style.display="block";       
+        elemento2.style.display="none";
+        
         document.getElementById("guardar").addEventListener("click", () => {
             // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
+ 
+
+            elemento1.style.display="none";
+            elemento2.style.display="block";
+
+
             let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
         
             // Obtiene el idMeal actual
@@ -133,37 +101,49 @@ function mostarReceta(idReceta){
         
                 // Guarda el arreglo actualizado en localStorage
                 localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
+                lugar.innerHTML +=`
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+                    </div>
+                `;
+                
             } 
+            
+                
+            
         });
         document.getElementById("eliminar").addEventListener("click", () => {
-        
+
+            elemento1.style.display="block";
+            elemento2.style.display="none";
             let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-        
            
             array = array.filter(item => item != idReceta);
             console.log(array);
             console.log(idReceta);
             if (array.length > 0) {
                 localStorage.setItem("idsGuardados", JSON.stringify(array));
+                lugar.innerHTML +=`
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+                    </div>
+                `;
             } else {
                 // Si el array queda vacío, eliminar la clave en localStorage
                 localStorage.removeItem("idsGuardados");
             }
-        });
-        
-        
-
-    });
-    
+            
+        });                
+    });  
 }
 
 function mostrarF(idReceta){
+
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
-
     console.log(tituloModal);
-
     obtenerDatos(url3)
-
     .then(receta =>{
         row.innerHTML += `
                  
@@ -185,14 +165,12 @@ function mostrarF(idReceta){
                     `; 
     })
 }
+
 function mostarRecetaF(idReceta){
 
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
-
     console.log(tituloModal);
-
     obtenerDatos(url3)
-
     .then(receta =>{
 
         tituloModal.textContent = receta.meals[0].strMeal;
@@ -207,35 +185,45 @@ function mostarRecetaF(idReceta){
                 lista.append(li);
             } 
         }
+        elemento1.style.display="none";
+        elemento2.style.display="block";
         document.getElementById("guardar").addEventListener("click", () => {
-            // Recupera el arreglo actual desde localStorage o crea uno vacío si no existe
+
+            elemento1.style.display="none";
+            elemento2.style.display="block";
             let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
         
-            // Obtiene el idMeal actual
             const variableAguardar = receta.meals[0].idMeal;
         
-            // Verifica si el idMeal ya está en el arreglo
             if (!idsGuardados.includes(variableAguardar)) {
         
-                // Si no existe, lo agrega
                 idsGuardados.push(variableAguardar);
         
-                // Guarda el arreglo actualizado en localStorage
                 localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
+                lugar.innerHTML +=`
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+                    </div>
+                `;
             } 
         });
         document.getElementById("eliminar").addEventListener("click", () => {
-        
+            elemento1.style.display="block";
+            elemento2.style.display="none";
             let array = JSON.parse(localStorage.getItem("idsGuardados")) || [];
-        
-           
             array = array.filter(item => item != idReceta);
             console.log(array);
             console.log(idReceta);
             if (array.length > 0) {
                 localStorage.setItem("idsGuardados", JSON.stringify(array));
+                lugar.innerHTML +=`
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+                    </div>
+                `;
             } else {
-                // Si el array queda vacío, eliminar la clave en localStorage
                 localStorage.removeItem("idsGuardados");
             }
         });
