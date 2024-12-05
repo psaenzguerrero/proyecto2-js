@@ -1,7 +1,7 @@
 let selectorCategorias = document.querySelector('#categorias select');
 let row = document.querySelector('#recetas .row');
 // Mensaje emergente fallido
-let lugar = document.querySelector("#barra .lugar");
+let lugar = document.createElement("div");
 
 
 //VARIABLES MODAL
@@ -11,6 +11,7 @@ let lista = document.querySelector("#emergente ul");
 let textoModal = document.querySelector("#emergente p");
 const elemento1=document.getElementById("guardar");
 const elemento2=document.getElementById("eliminar");
+let modal = document.getElementById("emergente");
 
 
 
@@ -101,10 +102,11 @@ function mostarReceta(idReceta){
         
                 // Guarda el arreglo actualizado en localStorage
                 localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
+                modal.append(lugar);
                 lugar.innerHTML +=`
-                    <div class="alert alert-dismissible alert-danger">
+                    <div class="alert alert-dismissible alert-danger top-0 end-0">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+                        <strong>Guardado</strong> <a href="./favoritos.html" class="alert-link">Ver favoritos</a> 
                     </div>
                 `;
                 
@@ -124,10 +126,11 @@ function mostarReceta(idReceta){
             console.log(idReceta);
             if (array.length > 0) {
                 localStorage.setItem("idsGuardados", JSON.stringify(array));
+                modal.append(lugar);
                 lugar.innerHTML +=`
-                    <div class="alert alert-dismissible alert-danger">
+                    <div class="alert alert-dismissible alert-danger top-0 end-0">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+                        <strong>Eliminado</strong> <a href="./index.html" class="alert-link">Ver mas recetas</a>
                     </div>
                 `;
             } else {
@@ -194,18 +197,19 @@ function mostarRecetaF(idReceta){
             let idsGuardados = JSON.parse(localStorage.getItem("idsGuardados")) || [];
         
             const variableAguardar = receta.meals[0].idMeal;
-        
+            modal.append(lugar);
+                lugar.innerHTML +=`
+                    <div class="alert alert-dismissible alert-danger top-0 end-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>Guardado</strong> <a href="./favoritos.html" class="alert-link">Ver favoritos</a> 
+                    </div>
+                `;
             if (!idsGuardados.includes(variableAguardar)) {
         
                 idsGuardados.push(variableAguardar);
         
                 localStorage.setItem("idsGuardados", JSON.stringify(idsGuardados));
-                lugar.innerHTML +=`
-                    <div class="alert alert-dismissible alert-danger">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
-                    </div>
-                `;
+                
             } 
         });
         document.getElementById("eliminar").addEventListener("click", () => {
@@ -217,10 +221,11 @@ function mostarRecetaF(idReceta){
             console.log(idReceta);
             if (array.length > 0) {
                 localStorage.setItem("idsGuardados", JSON.stringify(array));
+                modal.append(lugar);
                 lugar.innerHTML +=`
-                    <div class="alert alert-dismissible alert-danger">
+                    <div class="alert alert-dismissible alert-danger top-0 end-0">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+                        <strong>Eliminado</strong> <a href="./index.html" class="alert-link">Ver mas recetas</a>
                     </div>
                 `;
             } else {
